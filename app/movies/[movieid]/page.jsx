@@ -8,31 +8,30 @@ export default function page({params}) {
     const itemId = parseInt(params.movieid);
 
     const [data, setData] = useState([]);
+    const [error, setError] = useState(null);
     
     useEffect(() => {
         async function getTopMovies() {
-            const res = await fetch(`https://api.themoviedb.org/3/movie/${itemId}?api_key=c0d1307e1b3c01284c7025bb0964cb2f`);
-            const ans = await res.json();
-            setData(ans)
+            try{
+
+                const res = await fetch(`https://api.themoviedb.org/3/movie/${itemId}?api_key=c0d1307e1b3c01284c7025bb0964cb2f`);
+                const ans = await res.json();
+                setData(ans)
+            } catch (error){
+                setError(error.message)
+            }
         }
         getTopMovies()
     },[])
-
-    console.log(data);
-    
-
-    const genres = data.genres;
-    console.log([genres].id);
-
 
     return (
         <>
             <section className='flex'>
                 <aside className='max-w-[16vw]'>
                     <div className=' py-[2.5rem] flex flex-col justify-between h-[100%] 2xl:h-[100vh]  border border-[#0000004d] rounded-r-[2.8rem] '>
-                        <Link href="/" className="flex items-center  px-4">
+                        <Link href="/" className="flex items-center  sm:px-4">
                             <div className='flex items-center gap-3  '>
-                                <Image src="/tv.svg" alt='MovieBox' width={500} height={500} className='w-[2.2rem] '/>
+                                <Image src="/tv.svg" alt='MovieBox' width={500} height={500} className='px-1 sm:w-[2.2rem] '/>
                                 <span className='hidden lg:block text-[1.2rem] font-bold'>MovieBox</span>
                             </div>
                         </Link>
@@ -89,7 +88,7 @@ export default function page({params}) {
                 </aside>
 
                 <main className='max-w-[90vw] lg:max-w-[83vw]  p-2 sm:p-8'>
-
+                {error && <p className='text-2xl text-[#BE123C]'>Error: {error}, please refresh</p>}
                     <div className='relative'>
                         <div className='rounded-3xl overflow-hidden  lg:h-[30rem]'>
                             <Image src={`https://image.tmdb.org/t/p/original/${data.backdrop_path}`} alt='Logo' width={10000} height={10000} className='w-[100%] '/>
@@ -103,8 +102,8 @@ export default function page({params}) {
                     </div>
 
                     <div className='flex flex-col md:flex-row gap-2 justify-between mt-4'>
-                        <div className=' flex flex-col sm:flex-row gap-1 sm:gap-3 text-[#404040] text-[0.6rem] sm:text-[1.4rem] font-[500]'>
-                            <p data-testid="movie-title">{data.title }   </p>
+                        <div className=' flex flex-col sm:flex-row gap-1 sm:gap-3 text-[#404040] text-[1rem] sm:text-[1.4rem] font-[500]'>
+                            <p data-testid="movie-title">{data.title }  </p>
                             •
                             <p data-testid="movie-release-date">{data.release_date} </p>
                             •
@@ -122,18 +121,18 @@ export default function page({params}) {
                         </div>
                     </div>
                     
-                    <div className='flex flex-col lg:flex-row mt-4 justify-between gap-4 '>
+                    <div className='flex flex-col lg:flex-row mt-4 justify-between gap-4'>
                         <div>
 
-                            <p className='text-[#333] text-[0.6rem] sm:text-[1.25rem]' data-testid="movie-overview">{data.overview}</p>
-                            <div className='text-[0.7rem] sm:text-[1.25rem] text-[#333] space-y-4 mt-4'>
+                            <p className='text-[#333] text-[1rem] sm:text-[1.25rem]' data-testid="movie-overview">{data.overview}</p>
+                            <div className='text-[1rem] sm:text-[1.25rem] text-[#333] space-y-4 mt-4'>
                                 <p>Director : <span className='text-[#BE123C] '>Joseph Kosinski</span></p>
                                 <p>Writers : <span className='text-[#BE123C] '>Jim Cash, Jack Epps Jr,  Peter Craig</span> </p>
                                 <p>Stars : <span className='text-[#BE123C] '>Tom Cruise, Jennifer Connelly, Miles Teller</span></p>
                             </div>
 
-                            <div className='flex text-[0.6rem] sm:text-[1.25rem] mt-7 border rounded-[0.625rem] border-[#C7C7C7] '>
-                                <div className='bg-[#BE123C] rounded-[0.625rem] px-5 py-3 text-white sm:whitespace-nowrap'> <p>Top rated movie #65</p></div>
+                            <div className='flex text-[0.8rem] sm:text-[1.25rem] mt-7 border rounded-[0.625rem] border-[#C7C7C7] '>
+                                <div className='bg-[#BE123C] rounded-[0.625rem] p-2 md:px-5 md:py-3 text-white sm:whitespace-nowrap'> <p>Top rated movie #65</p></div>
                                 <div className='flex justify-between items-center w-full px-3'> 
                                     <p className='text-[#333]'> 
                                         Awards 9 nominations
@@ -148,15 +147,15 @@ export default function page({params}) {
                         <div className='min-w-[24vw]'>
                             <div className='bg-[#BE123C] flex items-center justify-center px-6 py-2 gap-2 rounded-[0.625rem] drop-shadow-sm'>
                                 <span>
-                                    <Image src="/Two Tickets.svg" alt='Logo' width={100} height={100} className='w-[2.7rem] drop-shadow-sm'/>
+                                    <Image src="/Two Tickets.svg" alt='Logo' width={100} height={100} className='w-[2.1rem] md:w-[2.7rem] drop-shadow-sm'/>
                                 </span>
-                                <span className='whitespace-nowrap text-[1.25rem] text-white drop-shadow-sm '>
+                                <span className='whitespace-nowrap sm:text-[1.25rem] text-white drop-shadow-sm '>
                                     See Showtimes
                                 </span>
                             </div>
                             <div className='border-[#BE123C] border bg-[#be123c1a] flex items-center gap-2 justify-center px-6 py-2 mt-2 rounded-[0.625rem]'>
                                 <span>
-                                    <Image src="/List.svg" alt='Logo' width={100} height={100} className='w-[2rem] '/>
+                                    <Image src="/List.svg" alt='Logo' width={100} height={100} className='w-[1.5rem] md:w-[2rem] '/>
                                 </span>
                                 <span className='whitespace-nowrap text-[1.25rem] text-[#333]  '>
                                     More watch options

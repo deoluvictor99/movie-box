@@ -4,7 +4,7 @@ Movie-Box is a web app that allows users to view information about any movie, su
 
 ### Getting started
 
-To use Movie-Box, simply open your web browser and navigate to the following URL: [your-movie-box-url]
+To use Movie-Box, simply open your web browser and navigate to the following URL: [https://movie-box-hazel.vercel.app/]
 
 ### Usage
 

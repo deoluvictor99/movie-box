@@ -14,7 +14,7 @@ export default function Navbar() {
     return (
         <>
             <nav className="fixed md:px-10 lg:px-2 w-full z-20 top-3 sm:top-0 left-0 ">
-                <div className=" flex flex-wrap items-center justify-between p-1 sm:px-4 xl:px-[6rem] sm:py-[1rem] ">
+                <div className=" flex flex-wrap items-center justify-between p-1 sm:px-4 xl:px-[6rem] sm:py-[1rem]">
 
                     <Link href="/" className="flex items-center lg:order-1">
                         <div className='flex items-center justify-between gap-2 sm:gap-[1.3rem]'>
