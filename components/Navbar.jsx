@@ -13,7 +13,7 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className="px-3 md:px-5 lg:px-4 w-full py-4 md:py-2 z-20 left-0 absolute bg-black bg-opacity-60 ">
+            <nav className="px-3 md:px-5 lg:px-4 w-full py-4 md:py-2 z-20 left-0 fixed bg-black bg-opacity-60  ">
                 <div className=" flex flex-wrap items-center sm:items-start justify-between md:gap-x-10 p-1 md:p-0 sm:px-1 xl:px-[4rem] sm:py-[1rem]">
 
                     <Link href="/" className="flex items-center lg:order-1">
@@ -27,7 +27,7 @@ export default function Navbar() {
                         isOpen={isOpen}
                     />
 
-            {/* search icon only appears on mobile screens */}
+            {/* search icon, only appears on mobile screens */}
                     <button 
                         onClick={() => {setIsOpen(!isOpen)}}
                         className="block sm:hidden order-2"
