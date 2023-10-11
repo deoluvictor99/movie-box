@@ -52,9 +52,9 @@ useEffect(() => {
 useEffect(() => {
     async function getMoviesTrailer() {
         try {
-        const response = await fetch(`https://api.themoviedb.org/3/movie/${itemId}/videos?api_key=c0d1307e1b3c01284c7025bb0964cb2f`);
-        const ans = await response.json();
-        setTrailer(ans.results[0]);
+            const response = await fetch(`https://api.themoviedb.org/3/movie/${itemId}/videos?api_key=c0d1307e1b3c01284c7025bb0964cb2f`);
+            const ans = await response.json();
+            setTrailer(ans.results[0]);
         } catch (error) {
             setError(error.message);
         }
@@ -113,23 +113,12 @@ return (
                     </Link>
                 </div>
 
-                {/* <div className='hidden lg:block p-2 pt-[1rem] bg-[#f8e7eb66] border border-[#be123cb3] rounded-[1.25rem] space-y-3 w-[9.375rem] '>
-                    <h3 className='text-[0.875rem] font-semibold text-[#333333CC]'>Play movie quizes and earn free tickets</h3>
-                    <p className='text-[0.75rem] text-[#666666]'>50K people are playing now</p>
-                    
-                    <div className="">
-                        <button className='bg-[#be123c33] text-[0.85rem]  text-[#BE123C] hover:bg-[#be123cb3] hover:text-white rounded-full px-6 py-2 '>
-                            Start playing
-                        </button>
-                    </div>
-                </div> */}
-
-                <Link href="" className="flex items-center gap-2 text-center pr-1 px-4">
+                {/* <Link href="" className="flex items-center gap-2 text-center pr-1 px-4">
                     <span>
                         <Image src="/icons8-log-out-50.png" alt='Logo' width={500} height={500} className='w-[1.6rem] '/>
                     </span>
                     <span className='hidden lg:block text-[1.1rem] '>Log out</span>
-                </Link>
+                </Link> */}
             </div>
         </aside>
 
@@ -155,7 +144,7 @@ return (
                     <p>{data.adult ? "R" : "PG-13"} • </p>
                     <p data-testid="movie-runtime">
                     {`${data.runtime ? Math.floor(data.runtime / 60) : ""}h`}{" "}
-                    {data.runtime ? data.runtime % 60 : ""} m
+                    {data.runtime ? data.runtime % 60 : ""}m
                     </p>
                     {getGenre.map((gen) => (
                     <p key={gen} className="text-[#BE123C]">

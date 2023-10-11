@@ -1,33 +1,22 @@
-'use client'
-
-import { useState } from 'react'
+"use client"
 
 // components
 import Hero from '@/components/Hero'
 import Navbar from '@/components/Navbar'
 import TopMovies from '@/components/TopMovies'
+import Footer from '@/components/Footer'
 
 
 
 export default function Home() {
-  
-  const [movieList, setMovieList] = useState([])
-  
-  async function getMovies() {
-    const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=c0d1307e1b3c01284c7025bb0964cb2f`)
-    const ans = await res.json();
-    setMovieList(ans.results)
-  }
-  
-  
-  
-  
+
   return (
     <>
       <div>
         <Navbar/>
         <Hero/>
         <TopMovies/>
+        <Footer/>
       </div>
     </>
   )

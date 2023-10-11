@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Button({content}) {
+export default function Button() {
     return (
         <>
             <button className='flex gap-2 items-center text-white bg-[#BE123C] px-6 py-3  rounded-md'>

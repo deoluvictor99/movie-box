@@ -1,37 +1,63 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
+import Link from "next/link";
 
-export default function Searchbar({isOpen, setIsOpen}) {
-    const [value, setValue] = useState("");
+export default function Searchbar({isOpen}) {
+
+    const [searchResults, setSearchResults] = useState([]);
+    const [query, setQuery] = useState("");
+
+
+    
+
+    useEffect(() => {
+        const searchMovie = async() => {
+            const url = `https://api.themoviedb.org/3/search/movie?api_key=c0d1307e1b3c01284c7025bb0964cb2f&query=${query}`;
+            const res = await fetch(url);
+            const data = await res.json();
+            setSearchResults(data.results)
+        }
+        searchMovie();
+    }, [query])
+
+    const handleChange = (e) => {
+        e.preventDefault();
+        setQuery(() => e.target.value)
+    }
+    
+
     return (
         <>
             <div 
-                className={`
-                            sm:block w-full lg:w-[40rem] relative order-last lg:order-2
-                            ${isOpen? 'flex mt-2' : 'hidden'}
+                className={` sm:flex mt-2 sm:mt-0
+                            w-full sm:w-[23rem] md:w-[35rem] xl:w-[50rem] relative order-last sm:order-2 transition-all duration-500
+                            ${isOpen? 'flex' : 'hidden'}
                         `}>
                 <div className="relative w-full">
 
-                        <button 
-                            type="button" 
-                            className="absolute top-1/2 right-4 -translate-x-1/2 -translate-y-1/2"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                <path d="M14 14L10 10M11.3333 6.66667C11.3333 9.244 9.244 11.3333 6.66667 11.3333C4.08934 11.3333 2 9.244 2 6.66667C2 4.08934 4.08934 2 6.66667 2C9.244 2 11.3333 4.08934 11.3333 6.66667Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                        </button>
-
                         <input 
                             type="search" 
-                            id="search-navbar" 
-                            placeholder="What do you want to watch?"
-                            className="block w-full sm:mt-5 p-2 sm:p-4 sm:px-6 text-white placeholder:text-white font-normal border-2 border-[#D1D5DB] focus:outline-none rounded-md bg-transparent " 
-                            value={value}
-                            onChange={(e) => {setValue(e.target.value)}}
+                            placeholder="Search Movie"
+                            className="block w-full p-2 sm:p-4 sm:px-6 text-white placeholder:text-white font-normal border-2 border-[#D1D5DB] focus:outline-none rounded-md bg-transparent " 
+                            onChange={handleChange}
                         />
+                        <div className=" max-h-[30rem] overflow-y-scroll overflow-hidden ">
+                            {
+                                searchResults?.map(result => (
+                                        <Link href={`/movies/${result.id}`} key={result.id} className="bg-[#BE123C] bg-opacity-90 text-white flex gap-5 border-y-2 border-dotted">
+                                            <div>
+                                                <img src={`https://image.tmdb.org/t/p/original/${result.poster_path}`} alt="movie-poster" width='35px' height='auto' className="w-[4rem]"/>
+                                            </div>
+                                            <div className="space-y-2 pt-1">
+                                                <h2>{result.original_title}</h2>
+                                                <p>{result.release_date.toString().slice(0,4)}</p>
+                                            </div>
+                                        </Link>
+                                ))
+                            }
+                        </div>
 
                 </div>
             </div>
-
         </>
     );
 }
